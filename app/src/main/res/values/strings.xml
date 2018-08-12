@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AndroidCA</string>
+    <string name="title_home">Student</string>
+    <string name="title_dashboard">Enrollment</string>
+    <string name="title_notifications">Course</string>
+    <string name="button_delete">删除</string>
+    <string name="button_edit">编辑</string>
+    <string name="student_id">Student Id</string>
+    <string name="student_name">Student Name</string>
+    <string name="student_password">Student Password</string>
+    <string name="enrollment_grade">Enrollment Grade</string>
+    <string name="course_id">Course Id</string>
+    <string name="course_title">Course Title</string>
+    <string name="course_credits">Course Credits</string>
+</resources>

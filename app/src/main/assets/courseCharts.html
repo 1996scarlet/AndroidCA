@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/highcharts-more.js"></script>
+
+    <script type="text/javascript">
+        function initChart(str) {
+            $.getJSON(str, function (data) {
+                var myGrade = new Array(0,0,0,0,0);
+                for(var i=0; i<data.length; i++){
+                    var cc = parseInt(data[i].Grade);
+                    if(cc<60) myGrade[0]++
+                    else if(cc<70) myGrade[1]++
+                    else if(cc<80) myGrade[2]++
+                    else if(cc<90) myGrade[3]++
+                    else if(cc<=100) myGrade[4]++
+                }
+                Highcharts.chart('container', {
+                     title: {
+                        text: 'Student Grades'
+                     },
+                     credits: {
+                        enabled: false
+                     },
+                     tooltip: {
+                            headerFormat: '{series.name}<br>',
+                            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                     plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: '成绩分布情况统计',
+                        data: [
+                            ['不及格',   myGrade[0]],
+                            ['及格',       myGrade[1]],
+                            ['中等',    myGrade[2]],
+                            ['良好',     myGrade[3]],
+                            ['优秀',   myGrade[4]]
+                        ]
+                    }]
+                });
+                 Highcharts.chart('container2', {
+                     credits: {
+                        enabled: false
+                     },
+                     xAxis: {
+                         categories: ['不及格','及格','中等','良好','优秀']
+                     },
+                    yAxis: {
+                        title: null
+                    },
+                     series: [{
+                        type: 'column',
+                        colorByPoint: true,
+                        data: myGrade,
+                        showInLegend: false
+                    }]
+                });
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div id="container"></div>
+<div id="container2"></div>
+</body>
+</html>

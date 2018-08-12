@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/highcharts-more.js"></script>
+
+    <script type="text/javascript">
+        function initChart(str) {
+            $.getJSON(str, function (data) {
+                var myGrade = new Array();
+                var myCourse = new Array();
+                for(var i=0; i<data.length; i++){
+                    myGrade[i] = parseInt(data[i].Grade);
+                    myCourse[i] = data[i].Course.Id;
+                }
+                var chart = Highcharts.chart('container', {
+                     title: {
+                        text: 'Student Grades'
+                     },
+                     subtitle: {
+                         text: '普通的'
+                     },
+                     credits: {
+                        enabled: false
+                     },
+                     xAxis: {
+                         categories: myCourse
+                     },
+                    yAxis: {
+                        title: null
+                    },
+                     series: [{
+                        type: 'column',
+                        colorByPoint: true,
+                        data: myGrade,
+                        showInLegend: false
+                    }]
+                });
+                $('#plain').click(function () {
+                    chart.update({
+                        chart: {
+                            inverted: false,
+                            polar: false
+                        },
+                        subtitle: {
+                            text: '普通的'
+                        }
+                    });
+                });
+                $('#inverted').click(function () {
+                    chart.update({
+                        chart: {
+                            inverted: true,
+                            polar: false
+                        },
+                        subtitle: {
+                            text: '反转'
+                        }
+                    });
+                });
+                $('#polar').click(function () {
+                    chart.update({
+                        chart: {
+                            inverted: false,
+                            polar: true
+                        },
+                        subtitle: {
+                            text: '极地图'
+                        }
+                    });
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="container"></div>
+<button id="plain">普通</button>
+<button id="inverted">反转</button>
+<button id="polar">极地图</button>
+</body>
+</html>
